@@ -9,10 +9,7 @@ The Cup Virtual Machine Alpha
 #include <ctype.h>
 #include <assert.h>
 
-struct STACK_STRUCT {
-
-    int STACK[5000];
-};
+int registers[32000];
 
 char* read_file(char fname[5000]) {
         /* declare a file pointer */
@@ -60,20 +57,21 @@ int NEXT_BYTE(char program[5000]) {
         int i;
         int byte_len = strlen(strbyte);
         
-        // for(i=0; i<byte_len; i++){
-
-        //     byte = byte * 10 + ( strbyte[i] - '0' );
-
-        // }
+   
         byte = atoi(strbyte);
-        printf("\nBYTETIME:%d\n", byte);
+     
         return byte;
 }
 int main(int argc, char *argv[]) {
-    /* Create data stack*/
-    struct STACK_STRUCT DATA_STACK;
+    int i = 0;
+    /* Create Registers */
+    while (i != 32000) {
+        registers[i] = 0;
+        
+        i++;
+    }
  
-    int DATA_STACK_SIZE = 0;
+    int amount_registers = 0;
       
     /* byte stores current opcode */
     unsigned int byte;
@@ -90,24 +88,28 @@ int main(int argc, char *argv[]) {
         
         switch (byte) {
             case 1:
-                 /* PUSH Instruction */
+                 /* MOVE Instruction */
                 chopN(program, 2);
                 byte = 0;
-           
-                byte = NEXT_BYTE(program);
-                
-                
+
                 char BYTE_STR[5000];
+                int ADDR = NEXT_BYTE(program);
+                sprintf(BYTE_STR, "%d", ADDR);
+                chopN(program, strlen(BYTE_STR));
+
+                byte = NEXT_BYTE(program);
                 sprintf(BYTE_STR, "%d", byte);
                 chopN(program, strlen(BYTE_STR));
-                DATA_STACK.STACK[DATA_STACK_SIZE] = byte; 
-             
-                DATA_STACK_SIZE++;
+                printf("\nREGISTER:%d\n", registers[ADDR]);
+                registers[ADDR] = byte; 
+                printf("\nREGISTER:%d\n", registers[ADDR]);
+                amount_registers++;
                 
 
                 break;
+                 
         }
-    
+     
         BYTE_ADDR++;
     }
     return 0;
