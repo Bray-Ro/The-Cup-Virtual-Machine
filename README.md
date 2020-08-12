@@ -4,7 +4,7 @@ The official Bytecode interpreter for the cup programming language
 Note That these docs will update along with the VM and the VM will get more opcodes
 The Cup Virtual Machine is an application wich executes the compiled bytecode that the Cup Compiler generates. The following text will document the architecture of the Cup Virtual machine aswell as all of the Opcodes for the VM. This will help people create new implementations of the cup VM aswell as create new Cup compilers.
 
-# The architecture of the cup Virtual Machine
+# The architecture of the cup Virtual Machine
 The Cup virtual machine, Unlike The Java and Python Virtual machine is register based wich means that The cup VM has registers instead of only a stack. The CVM has 3200 of these registers in the standard implementation, These registers may all hold a hexadecimal integer value ( Chars may be implemented by storing the corrosponding Hexadecimal ASCII code in a register and then printing those registers).
 
 # Cup VM opcodes
